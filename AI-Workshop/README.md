@@ -4,6 +4,8 @@
 
 This repository contains materials for the Timescale AI Workshop, which demonstrates how to integrate PostgreSQL with AI capabilities for managing and analyzing EV charging station data. The workshop showcases the power of TimescaleDB, PostGIS, and AI extensions to build intelligent applications for time-series and geospatial data.
 
+
+
 ## Contents
 
 - **Data Files**:
