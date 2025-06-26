@@ -59,6 +59,7 @@ CREATE TABLE crypto_assets (
 ### 1. Hypertable Creation
 
 Convert regular tables into time-series optimized hypertables:
+
 ```sql
 SELECT create_hypertable('crypto_ticks', by_range('time'));
 ```
@@ -120,13 +121,17 @@ GROUP BY bucket, symbol;
 
 1. Follow the instructions in `analyze-financial-data-psql.sql`
 
-2. The script will automatically download sample data and guide you through each step3. Includes timing comparisons to demonstrate performance improvements
+2. The script will automatically download sample data and guide you through each step
+
+3. Includes timing comparisons to demonstrate performance improvements
 
 ### Option 2: Using Timescale Cloud Console
 
 1. Follow the instructions in `analyze-financial-data-UI.sql`
 
-2. Use the S3 import feature to load data directly from Timescale's demo datasets3. Execute queries directly in the web-based query editor
+2. Use the S3 import feature to load data directly from Timescale's demo datasets
+
+3. Execute queries directly in the web-based query editor
 
 ## Workshop Highlights
 
