@@ -22,7 +22,7 @@
 -- ============================================================================
 -- To follow the steps on this page:
 --
--- 1. Create a target Timescale Cloud service with time-series and analytics enabled.
+-- 1. Create a target TigerData Cloud service with time-series and analytics enabled.
 --    https://console.cloud.timescale.com/signup
 --
 -- 2. You need your connection details like: 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This workshop demonstrates advanced time-series data analysis using PostgreSQL and TimescaleDB for financial applications. You'll learn how to work with cryptocurrency tick data, create candlestick charts from OHLCV (Open, High, Low, Close, Volume) data, and implement performance optimization techniques including columnar compression and continuous aggregates.
+This workshop demonstrates advanced time-series data analysis using PostgreSQL and TigerData for financial applications. You'll learn how to work with cryptocurrency tick data, create candlestick charts from OHLCV (Open, High, Low, Close, Volume) data, and implement performance optimization techniques including columnar compression and continuous aggregates.
 
 ![candlestick data](https://i.imgur.com/DNUzIPD.png)
 
@@ -32,7 +32,9 @@ This workshop demonstrates advanced time-series data analysis using PostgreSQL a
 
 - Optional, but recommended - install psql CLI https://www.tigerdata.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows
 
-- Basic knowledge of SQL and financial data concepts## Data StructureThe workshop uses two main datasets:
+- Basic knowledge of SQL and financial data concepts
+
+## Data StructureThe workshop uses two main datasets:
 
 ### Crypto Ticks Table
 
