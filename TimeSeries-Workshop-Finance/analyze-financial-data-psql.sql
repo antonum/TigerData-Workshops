@@ -114,7 +114,7 @@ SELECT * FROM crypto_assets LIMIT 10;
 -- time column, so you don't need to create an index on that column.
 
 CREATE INDEX ON crypto_assets (symbol);
-CREATE INDEX ON crypto_ticks (symbol);
+CREATE INDEX ON crypto_ticks (symbol, time);
 -- ============================================================================
 -- ## Examine Hypertable Details (psql command)
 -- ============================================================================

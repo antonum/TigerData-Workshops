@@ -57,6 +57,11 @@
 -- 2. Create new "Query Tab" (+) sign at the top right
 -- 3. Copy and paste the code below into the query editor
 --
+
+-- ### Drop tables and associated objects
+DROP TABLE IF EXISTS crypto_ticks CASCADE;
+DROP TABLE IF EXISTS crypto_assets CASCADE;
+
 -- ### Load Data from S3
 -- **Option 1: Using TigerData Console UI**
 -- 1. In TigerData Console: Actions -> S3 Import
@@ -91,7 +96,7 @@ SELECT * FROM crypto_assets LIMIT 10;
 -- time column, so you don't need to create an index on that column.
 
 CREATE INDEX ON crypto_assets (symbol);
-CREATE INDEX ON crypto_ticks (symbol);
+CREATE INDEX ON crypto_ticks (symbol, time);
 -- ============================================================================
 -- ## Examine Hypertable Details 
 -- ============================================================================
