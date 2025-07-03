@@ -1,0 +1,25 @@
+time,equipment_id,event_type,maintenance_type,duration,cost,technician_id,description,parts_replaced
+2025-05-05 21:46:37,MOTOR_001,scheduled,preventive,4.9,1156.07,TECH_003,Scheduled preventive maintenance for MOTOR_001,
+2025-06-04 21:46:37,MOTOR_001,scheduled,preventive,4.7,1266.56,TECH_001,Scheduled preventive maintenance for MOTOR_001,"{filters,lubricants}"
+2025-05-07 21:46:37,MOTOR_002,scheduled,preventive,4.7,1599.43,TECH_005,Scheduled preventive maintenance for MOTOR_002,"{filters,lubricants}"
+2025-06-08 21:46:37,MOTOR_002,scheduled,preventive,5.4,1321.35,TECH_001,Scheduled preventive maintenance for MOTOR_002,"{filters,lubricants}"
+2025-05-02 21:46:37,PUMP_001,scheduled,preventive,4.5,882.1,TECH_003,Scheduled preventive maintenance for PUMP_001,"{filters,lubricants}"
+2025-04-23 11:46:37,PUMP_001,unscheduled,corrective,6.8,1830.59,TECH_005,Unscheduled repair: electrical issue,"{belts,pulleys}"
+2025-06-02 21:46:37,PUMP_001,scheduled,preventive,3.4,1886.49,TECH_005,Scheduled preventive maintenance for PUMP_001,
+2025-05-01 21:46:37,PUMP_002,scheduled,preventive,3.2,1260.15,TECH_004,Scheduled preventive maintenance for PUMP_002,"{filters,lubricants}"
+2025-05-29 21:46:37,PUMP_002,scheduled,preventive,3.6,1232.05,TECH_005,Scheduled preventive maintenance for PUMP_002,"{filters,lubricants}"
+2025-06-26 21:46:37,PUMP_002,scheduled,preventive,4.6,813.83,TECH_002,Scheduled preventive maintenance for PUMP_002,
+2025-05-03 21:46:37,CONV_001,scheduled,preventive,4.1,1259.2,TECH_002,Scheduled preventive maintenance for CONV_001,"{filters,lubricants}"
+2025-06-05 21:46:37,CONV_001,scheduled,preventive,3.4,1710.1,TECH_003,Scheduled preventive maintenance for CONV_001,"{filters,lubricants}"
+2025-05-04 21:46:37,CONV_002,scheduled,preventive,4.7,1521.5,TECH_002,Scheduled preventive maintenance for CONV_002,"{filters,lubricants}"
+2025-06-03 21:46:37,CONV_002,scheduled,preventive,5.2,617.26,TECH_004,Scheduled preventive maintenance for CONV_002,"{filters,lubricants}"
+2025-05-01 21:46:37,ROBOT_001,scheduled,preventive,5.9,1737.74,TECH_001,Scheduled preventive maintenance for ROBOT_001,"{filters,lubricants}"
+2025-05-30 21:46:37,ROBOT_001,scheduled,preventive,4.8,1427.82,TECH_004,Scheduled preventive maintenance for ROBOT_001,"{filters,lubricants}"
+2025-05-08 21:46:37,ROBOT_002,scheduled,preventive,4.8,521.65,TECH_004,Scheduled preventive maintenance for ROBOT_002,"{filters,lubricants}"
+2025-06-07 21:46:37,ROBOT_002,scheduled,preventive,4.7,882.57,TECH_002,Scheduled preventive maintenance for ROBOT_002,"{filters,lubricants}"
+2025-05-05 21:46:37,COMP_001,scheduled,preventive,2.9,1968.82,TECH_002,Scheduled preventive maintenance for COMP_001,"{filters,lubricants}"
+2025-06-04 21:46:37,COMP_001,scheduled,preventive,4.1,673.8,TECH_005,Scheduled preventive maintenance for COMP_001,"{filters,lubricants}"
+2025-06-29 10:46:37,COMP_001,unscheduled,corrective,6.4,4849.42,TECH_004,Unscheduled repair: hydraulic leak,"{sensors,wiring}"
+2025-05-03 21:46:37,HVAC_001,scheduled,preventive,4.8,1932.53,TECH_003,Scheduled preventive maintenance for HVAC_001,"{filters,lubricants}"
+2025-06-04 21:46:37,HVAC_001,scheduled,preventive,2.6,1468.55,TECH_003,Scheduled preventive maintenance for HVAC_001,"{filters,lubricants}"
+2025-07-02 21:46:37,HVAC_001,scheduled,preventive,2.8,1245.35,TECH_005,Scheduled preventive maintenance for HVAC_001,"{filters,lubricants}"
