@@ -1,7 +1,9 @@
 -- # Install requires extensions vector, vectorscale, and ai
 CREATE EXTENSION IF NOT EXISTS vector CASCADE;
 CREATE EXTENSION IF NOT EXISTS vectorscale CASCADE;
-CREATE EXTENSION IF NOT EXISTS ai CASCADE;
+--SELECT * FROM pg_available_extension_versions WHERE name = 'ai' ORDER BY version;
+DROP EXTENSION IF EXISTS ai CASCADE;
+CREATE EXTENSION ai WITH VERSION '0.9.0' CASCADE;
 
 -- # Clear Timescale Tables
 DROP TABLE IF EXISTS ev_maintenance_reports CASCADE;
