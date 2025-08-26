@@ -9,6 +9,27 @@ CREATE EXTENSION ai WITH VERSION '0.9.0' CASCADE;
 DROP TABLE IF EXISTS ev_maintenance_reports CASCADE;
 DROP TABLE IF EXISTS ev_charging_stations CASCADE;
 
+------------------------------
+-- UI specific instructions --
+------------------------------
+-- If you are using UI, instead of PSQL, load the following files into TigerData:
+--
+-- - ev_charging_stations.csv
+-- - ev_maintenance_reports.csv
+--
+-- Your Service -> Actions -> Import Data -> Upload CSV
+-- 
+-- Create PRIMARY KEY for ev_maintenance_reports
+ALTER TABLE ev_maintenance_reports ADD PRIMARY KEY (id);
+
+-------------------------------------
+-- End of UI specific instructions --
+-------------------------------------
+
+-------------------------------
+-- PSQL client specific code --
+-------------------------------
+
 -- EV Charging Stations and Maintenance Reports Schema
 CREATE TABLE ev_charging_stations (
     id INTEGER PRIMARY KEY,
@@ -31,6 +52,10 @@ CREATE TABLE ev_maintenance_reports (
 
 -- Import ev_maintenance_reports data
 \COPY ev_maintenance_reports(id, station_code, date, description, status) FROM 'ev_maintenance_reports.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
+
+-----------------------------
+-- End of PSQL client code --
+-----------------------------
 
 -- Create Vectorizer for Description Column of ev_maintenance_reports table
 SELECT ai.create_vectorizer(
