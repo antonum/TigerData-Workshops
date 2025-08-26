@@ -1,4 +1,5 @@
--- # Install requires extensions vector, vectorscale, and ai
+-- # Install requires extensions postgis, vector, vectorscale, and ai
+CREATE EXTENSION IF NOT EXISTS postgis CASCADE;
 CREATE EXTENSION IF NOT EXISTS vector CASCADE;
 CREATE EXTENSION IF NOT EXISTS vectorscale CASCADE;
 --SELECT * FROM pg_available_extension_versions WHERE name = 'ai' ORDER BY version;
