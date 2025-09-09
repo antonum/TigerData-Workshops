@@ -58,25 +58,42 @@
 DROP TABLE IF EXISTS crypto_ticks CASCADE;
 DROP TABLE IF EXISTS crypto_assets CASCADE;
 
--- Create a standard PostgreSQL table to store the real-time cryptocurrency data
+-- Create a hypertable to store the real-time cryptocurrency data
+-- To enable columnarstore, you need to set the tsdb.hypertable 
+-- parameter to true. 
+-- The tsdb.orderby parameter specifies the order in which the 
+-- data is compressed.
+-- The tsdb.segmentby parameter specifies the column by which the data 
+-- is segmented. The segmentby column is used to group the data into segments, 
+-- which are then compressed separately.
 CREATE TABLE crypto_ticks (
-    "time"     TIMESTAMPTZ NOT NULL,
-    symbol     TEXT,
-    price      DOUBLE PRECISION,
+    "time" TIMESTAMPTZ,
+    symbol TEXT,
+    price DOUBLE PRECISION,
     day_volume NUMERIC
+) WITH (
+   tsdb.hypertable,
+   tsdb.partition_column='time',
+   tsdb.segmentby='symbol', 
+   tsdb.orderby='time DESC'
 );
-
--- Convert the standard table into a hypertable partitioned on the time column 
--- using the create_hypertable() function provided by Timescale. 
--- You must provide the name of the table and the column in that table that 
--- holds the timestamp data to use for partitioning:
-SELECT create_hypertable('crypto_ticks', by_range('time'));
 
 -- Create a standard PostgreSQL table for relational data
 CREATE TABLE crypto_assets (
     symbol TEXT UNIQUE,
     "name" TEXT
 );
+
+-- ============================================================================
+-- ## Create Indexes
+-- ============================================================================
+-- Indexes are used to speed up the retrieval of data from a database table.
+-- In this case, you create an index on the symbol column of the crypto_assets 
+-- and crypto_ticks tables. Hypertables automatically create indexes on the 
+-- time column, so you don't need to create an index on that column.
+
+CREATE INDEX ON crypto_assets (symbol);
+CREATE INDEX ON crypto_ticks (symbol, time);
 
 -- ============================================================================
 -- ## Load Financial Data
@@ -92,8 +109,8 @@ CREATE TABLE crypto_assets (
 -- At the psql prompt, use the COPY command to transfer data into your Timescale 
 -- instance. If the .csv files aren't in your current directory, specify the 
 -- file paths in these commands:
-\COPY crypto_ticks FROM 'tutorial_sample_tick.csv' CSV HEADER;
 \COPY crypto_assets FROM 'tutorial_sample_assets.csv' CSV HEADER;
+\COPY crypto_ticks FROM 'tutorial_sample_tick.csv' CSV HEADER;
 
 -- ============================================================================
 -- ## Preview Data
@@ -105,16 +122,6 @@ SELECT * FROM crypto_ticks LIMIT 10;
 -- Preview the reference data
 SELECT * FROM crypto_assets LIMIT 10;
 
--- ============================================================================
--- ## Create Indexes
--- ============================================================================
--- Indexes are used to speed up the retrieval of data from a database table.
--- In this case, you create an index on the symbol column of the crypto_assets 
--- and crypto_ticks tables. Hypertables automatically create indexes on the 
--- time column, so you don't need to create an index on that column.
-
-CREATE INDEX ON crypto_assets (symbol);
-CREATE INDEX ON crypto_ticks (symbol, time);
 -- ============================================================================
 -- ## Examine Hypertable Details (psql command)
 -- ============================================================================
@@ -184,25 +191,6 @@ ORDER BY bucket;
 
 -- Remember the time it took to run the query. Later we will compare the performance 
 -- of the same query on compressed data and preaggregated data in Continuous aggregate
-
--- ============================================================================
--- ## Enable Columnarstore (Compression)
--- ============================================================================
--- To enable columnarstore, you need to set the timescaledb.enable_columnstore 
--- parameter to true. This parameter is set at the table level, so you need to 
--- run the ALTER TABLE command on the crypto_ticks hypertable.
--- The timescaledb.compress_orderby parameter specifies the order in which the 
--- data is compressed.
--- The timescaledb.segmentby parameter specifies the column by which the data 
--- is segmented. The segmentby column is used to group the data into segments, 
--- which are then compressed separately.
-
-ALTER TABLE crypto_ticks 
-SET (
-    timescaledb.enable_columnstore = true, 
-    timescaledb.segmentby = 'symbol',
-    timescaledb.compress_orderby = 'time DESC'
-);
 
 -- Enabling a columnarstore for the table by itself does not compress the data.
 -- You can either manually compress hypertable chunks or create a policy to 
@@ -311,7 +299,7 @@ ORDER BY bucket;
 -- see how the continuous aggregate view is updated.
 
 INSERT INTO crypto_ticks (time, symbol, price, day_volume)
-VALUES (NOW() + INTERVAL '1day', 'BTC/USD', 110000, 30750246);
+VALUES (NOW() + INTERVAL '1day', 'BTC/USD', 120000, 30750246);
 
 SELECT * 
 FROM one_day_candle
