@@ -66,6 +66,12 @@ Stores Bitcoin block information with primary key on block height.
 2. **Miner Analysis**: Identify block miners and their earnings
 3. **Transaction Graph Analysis**: Follow Bitcoin through multiple transactions
 
+### Agentic AI Analysis
+
+1. **AI-Powered Pattern Recognition**: Use MCP (Model Context Protocol) with AI models to discover complex patterns
+2. **Automated Transaction Analysis**: Let AI identify suspicious activities, dust spamming, and institutional behaviors
+3. **Exchange Activity Detection**: AI-driven identification of exchange-like transaction patterns
+
 ### Example Queries
 
 **Find all transactions in a specific block:**
@@ -100,6 +106,59 @@ WHERE (txid, timestamp) IN (SELECT txid, timestamp FROM transactions_out)
     AND type = 'vout';
 ```
 
+## Agentic AI Integration
+
+This workshop includes advanced AI-powered analysis capabilities using Model Context Protocol (MCP) to automatically discover complex blockchain patterns and behaviors.
+
+### Setting Up AI Analysis
+
+To enable agentic AI analysis, configure an MCP postgres agent with an MCP-capable model (such as Claude Desktop):
+
+```json
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-postgres",
+        "postgres://tsdbadmin:XXXXXX@YYYYY.ZZZZZ.tsdb.cloud.timescale.com:30688/tsdb?sslmode=require"
+      ]
+    }
+  }
+}
+```
+
+### AI Analysis Capabilities
+
+The AI agent can automatically identify and analyze:
+
+#### 1. Most Active Bitcoin Addresses and Transaction Patterns
+
+- **Dust Spamming Detection**: Identifies addresses engaged in dust attacks
+- **Example Finding**: Address `3Fh5XYeEKzqomEtLnc7155tZ3Dr1aC4CjM` shows dust spamming patterns
+
+#### 2. High-Value Transaction Analysis
+
+- **Institutional Activity**: Detects large Bitcoin consolidations and institutional movements
+- **Example Finding**: Address `bc1qx2x5cqhymfcnjtg902ky6u5t5htmt7fvqztdsm028hkrvxcl4t2sjtpd9l` shows multiple 19,000 BTC transactions indicating institutional player activity
+
+#### 3. Exchange-Like Activity Detection
+
+- **Trading Pattern Recognition**: Identifies addresses with exchange-characteristic transaction flows
+- **Example Finding**: Address `bc1qrqlamjhy2qp0xj5mxv4sx7ra9qfmfxllf93l26` exhibits typical exchange address behavior
+
+### Sample AI Analysis Questions
+
+Ask your AI agent to analyze the blockchain data with questions like:
+
+1. "Identify the most active Bitcoin addresses and their transaction patterns"
+2. "Find the highest value Bitcoin transactions and analyze consolidation patterns"
+3. "Detect addresses that exhibit exchange-like activity patterns"
+4. "Analyze mining rewards and trace where miners send their Bitcoin"
+5. "Identify potential suspicious or anomalous transaction behaviors"
+
+The AI will automatically query the database, analyze patterns, and provide insights about blockchain behaviors that would be difficult to detect manually.
+
 ## Getting Started
 
 1. **Connect to your TigerData Cloud instance** using psql
@@ -121,6 +180,9 @@ By the end of this workshop, you will understand how to:
 - Perform complex blockchain analytics using SQL
 - Trace Bitcoin transactions and analyze address behaviors
 - Optimize queries for large-scale blockchain datasets
+- Integrate AI agents for automated pattern discovery and anomaly detection
+- Use Model Context Protocol (MCP) for advanced blockchain analysis
+- Identify suspicious activities, institutional behaviors, and exchange patterns using AI
 
 ## Data Source
 
