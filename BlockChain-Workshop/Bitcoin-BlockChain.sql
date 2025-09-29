@@ -12,7 +12,7 @@ between blocks 900,000 and 900,999 (June 6-13, 2025)
 -- DROP EXISTING TABLES IF ANY
 -- ==========================================
 
-DROP TABLE IF EXISTS blocks;
+DROP TABLE IF EXISTS blocks CASCADE;
 DROP TABLE IF EXISTS tx_vinout CASCADE;
 DROP TABLE IF EXISTS transactions CASCADE;
 
@@ -31,8 +31,6 @@ CREATE TABLE IF NOT EXISTS blocks (
     PRIMARY KEY (height)
 );
 
--- Index on block hash for faster lookups
-CREATE INDEX ON blocks(hash);
 
 -- Transactions table: stores individual transaction data (hypertable)
 CREATE TABLE IF NOT EXISTS transactions (
@@ -44,6 +42,8 @@ CREATE TABLE IF NOT EXISTS transactions (
     coinbase     BOOLEAN,       -- Is this a coinbase transaction?
     txid_2       TEXT,          -- Additional txid field for segmenting
     txid_3       TEXT,          -- Additional txid field
+    vin_address_2_array TEXT[],  -- Array of last 2 chars of vin addresses
+    vout_address_2_array TEXT[], -- Array of last 2 chars of vout addresses
     PRIMARY KEY (txid, timestamp)
 ) WITH (
     tsdb.hypertable,
@@ -53,9 +53,6 @@ CREATE TABLE IF NOT EXISTS transactions (
     tsdb.segmentby = 'txid_2'
 );
 
--- Indexes for faster queries
-CREATE INDEX ON transactions (block_height);
-CREATE INDEX ON transactions (txid);
 
 -- Transaction inputs/outputs table: stores detailed transaction I/O data (hypertable)
 CREATE TABLE IF NOT EXISTS tx_vinout (
@@ -78,11 +75,6 @@ CREATE TABLE IF NOT EXISTS tx_vinout (
     tsdb.segmentby = 'address_2'
 );
 
--- Indexes for faster address and transaction lookups
-CREATE INDEX ON tx_vinout(address, timestamp);
-CREATE INDEX ON tx_vinout(txid, timestamp);
-
-
 -- ==========================================
 -- LOAD BITCOIN BLOCKCHAIN DATA
 -- ==========================================
@@ -93,17 +85,27 @@ CREATE INDEX ON tx_vinout(txid, timestamp);
 \! wget https://timescale-demo-data.s3.us-east-1.amazonaws.com/900000_900999_tx_vinout.csv.gz
 
 -- Load data from compressed files directly into tables
-\COPY blocks 
-    FROM PROGRAM 'gunzip -c 900000_900999_blocks.csv.gz' 
-    WITH (FORMAT CSV, HEADER);
+\COPY blocks FROM PROGRAM 'gunzip -c 900000_900999_blocks.csv.gz' WITH (FORMAT CSV, HEADER);
     
-\COPY transactions 
-    FROM PROGRAM 'gunzip -c 900000_900999_transactions.csv.gz' 
-    WITH (FORMAT CSV, HEADER);
+\COPY transactions FROM PROGRAM 'gunzip -c 900000_900999_transactions.csv.gz' WITH (FORMAT CSV, HEADER);
     
-\COPY tx_vinout 
-    FROM PROGRAM 'gunzip -c 900000_900999_tx_vinout.csv.gz' 
-    WITH (FORMAT CSV, HEADER);
+\COPY tx_vinout FROM PROGRAM 'gunzip -c 900000_900999_tx_vinout.csv.gz' WITH (FORMAT CSV, HEADER);
+
+-- ==========================================
+-- INDICES FOR PERFORMANCE ON UNCOMPRESSED DATA
+-- indices are created after the data is loaded 
+-- for faster overall load performance
+-- Skip this step if you are working with compressed/columnarstore data
+-- ==========================================
+
+-- Index on block
+CREATE INDEX ON blocks(hash);
+-- Indexes on transactions
+CREATE INDEX ON transactions (block_height, timestamp);
+CREATE INDEX ON transactions (txid, timestamp);
+-- Indexes on tx_vinout
+CREATE INDEX ON tx_vinout(address, timestamp);
+CREATE INDEX ON tx_vinout(txid, timestamp);
 
 -- ==========================================
 -- BASIC BLOCKCHAIN QUERIES
