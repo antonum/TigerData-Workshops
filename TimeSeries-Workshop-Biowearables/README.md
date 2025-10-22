@@ -2,7 +2,7 @@
 
 ## Overview
 
-This workshop demonstrates advanced time-series data analysis using PostgreSQL and TigerData for Biowearables. 
+This workshop demonstrates advanced time-series data analysis using PostgreSQL and TigerData for Biowearables,  
 eg track health metrics from wearable devices including:
 
 - Heart Rate (BPM)
@@ -21,7 +21,7 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
 
 - **Working with Bioweareables Data**: Work with sample generated bioweareables data
 
-- **Daily Health Analysis**: Generate daily health summaries & other queries
+- **Bioweareables Data Analysis**: Generate daily health summaries & other health monitoring queries
 
 - **Columnar Compression**: Achieve 10x storage reduction while improving query performance
 
@@ -31,9 +31,7 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
 
 ## Contents
 
-- **`analyze-financial-data-psql.sql`**: Complete workshop for psql command-line interface
-
-- **`analyze-financial-data-UI.sql`**: Workshop version optimized for Timescale Cloud Console UI
+- **`analyze-bioweareables-data-psql.sql`**: Complete workshop for psql command-line interface
 
 ## Prerequisites
 
@@ -96,17 +94,86 @@ CREATE TABLE wearable_devices(
 ## Key Features Demonstrated
 
 ### 1. Hypertable Creation
+
+Convert regular tables into time-series optimized hypertables:
+
+```sql
+SELECT create_hypertable('health_data', by_range('time'));
+```
+
 ### 2. Data Generation
+
+Create data for daily health analysis
+
+```sql
+SELECT
+   time_bucket('1 day', time) AS day,
+   device_id,
+   AVG(heart_rate) AS avg_heart_rate,
+   MIN(heart_rate) AS min_heart_rate,
+   MAX(heart_rate) AS max_heart_rate,
+   AVG(blood_pressure_systolic) AS avg_bp_systolic,
+   AVG(blood_pressure_diastolic) AS avg_bp_diastolic,
+   AVG(spo2) AS avg_spo2,
+   AVG(body_temperature) AS avg_temperature,
+   MAX(steps_count) AS total_steps,
+   AVG(sleep_quality_score) AS avg_sleep_quality,
+   COUNT(*) AS readings_count
+FROM health_data
+WHERE health_data.time >= NOW() - INTERVAL '14 days'
+GROUP BY day, device_id;
+```
+
 ### 3. Columnar Compression 
+
+Enable ~10x storage compression with improved query performance:
+
+```sql
+ALTER TABLE health_data 
+SET (
+    timescaledb.enable_columnstore = true, 
+    timescaledb.segmentby = 'device_id',
+    timescaledb.compress_orderby = 'time DESC'
+);
+```
+
 ### 4. Real Time Continuous Aggregates
+
+Create self-updating materialized views for instant analytics:
+
+```sql
+CREATE MATERIALIZED VIEW daily_health_summary
+WITH (
+   timescaledb.continuous,
+   timescaledb.materialized_only = false
+) AS
+SELECT
+   time_bucket('1 day', time) AS day,
+   device_id,
+   AVG(heart_rate) AS avg_heart_rate,
+   MIN(heart_rate) AS min_heart_rate,
+   MAX(heart_rate) AS max_heart_rate,
+   AVG(blood_pressure_systolic) AS avg_bp_systolic,
+   AVG(blood_pressure_diastolic) AS avg_bp_diastolic,
+   AVG(spo2) AS avg_spo2,
+   AVG(body_temperature) AS avg_temperature,
+   MAX(steps_count) AS total_steps,
+   AVG(sleep_quality_score) AS avg_sleep_quality,
+   COUNT(*) AS readings_count
+FROM health_data
+GROUP BY day, device_id;
+```
+
+
+
 
 ## Getting Started
 
 ### Using psql Command Line
 
-1. Follow the instructions in `analyze-financial-data-psql.sql`
+1. Follow the instructions in `analyze-bioweareables-data-psql.sql`
 
-2. The script will automatically download sample data and guide you through each step
+2. The script will generate sample data and guide you through each step
 
 3. Includes timing comparisons to demonstrate performance improvements
 
