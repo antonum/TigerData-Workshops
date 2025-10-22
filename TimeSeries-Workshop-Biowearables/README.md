@@ -19,9 +19,9 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
 
 - **Hypertables**: Convert regular PostgreSQL tables into time-series optimized hypertables
 
-- **Real-time Financial Data**: Work with actual cryptocurrency tick data from Twelve Data
+- **Working with Bioweareables Data**: Work with sample generated bioweareables data
 
-- **OHLCV Analysis**: Generate candlestick chart data for financial asset visualization
+- **Daily Health Analysis**: Generate daily health summaries & other queries
 
 - **Columnar Compression**: Achieve 10x storage reduction while improving query performance
 
@@ -41,9 +41,9 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
 
 - Optional, but recommended - install psql CLI https://www.tigerdata.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows
 
-- Basic knowledge of SQL and financial data concepts
+- Basic knowledge of SQL and relational data concepts
 
-## Data StructureThe workshop uses two main datasets:
+## Data Structure
 
 ### Health Data Table
 
