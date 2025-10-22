@@ -95,10 +95,26 @@ CREATE TABLE wearable_devices(
 
 ### 1. Hypertable Creation
 
-Convert regular tables into time-series optimized hypertables:
+Time-series optimized hypertables:
 
 ```sql
-SELECT create_hypertable('health_data', by_range('time'));
+CREATE TABLE health_data (
+   time TIMESTAMPTZ NOT NULL,
+   device_id INTEGER,
+   heart_rate INTEGER,  -- BPM
+   blood_pressure_systolic INTEGER,  -- mmHg
+   blood_pressure_diastolic INTEGER,  -- mmHg
+   spo2 DOUBLE PRECISION,  -- Blood oxygen saturation %
+   body_temperature DOUBLE PRECISION,  -- Celsius
+   steps_count INTEGER,  -- Daily cumulative steps
+   sleep_quality_score DOUBLE PRECISION,  -- 0-100 scale
+   activity_level TEXT  -- sedentary, light, moderate, vigorous
+) WITH (
+   tsdb.hypertable,
+   tsdb.partition_column='time',
+   tsdb.segmentby='device_id',
+   tsdb.orderby='time DESC'
+);
 ```
 
 ### 2. Generate Data & Run Analytical Queries 
