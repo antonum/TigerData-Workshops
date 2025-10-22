@@ -104,7 +104,10 @@ CREATE INDEX ON health_data (time DESC, heart_rate);
 CREATE INDEX ON health_data (time DESC, blood_pressure_systolic);
 
 
--- If you have sparse data, with columns that are often NULL, you can add a clause to the index, saying WHERE column IS NOT NULL. This prevents the index from indexing NULL data, which can lead to a more compact and efficient index.
+-- If you have sparse data, with columns that are often NULL, 
+-- you can add a clause to the index, saying WHERE column IS NOT NULL. 
+-- This prevents the index from indexing NULL data, 
+-- which can lead to a more compact and efficient index.
 
 
 CREATE INDEX ON health_data (blood_pressure_systolic, time DESC)
@@ -133,12 +136,17 @@ CREATE INDEX ON health_data (blood_pressure_systolic, time DESC)
 -- Make sure that the sparse index creation is set to TRUE
 SET timescaledb.enable_sparse_index_bloom TO true;
 
--- In the case where a measurement is very likely to exist in all chunks/segments eg heart rate of 80 bpm, use bloom index to check is a value might exist in a segment
+-- In the case where a measurement is very likely to exist in all chunks/segments 
+-- eg heart rate of 80 bpm, use bloom index to check is a value might exist in a segment
+
 ALTER TABLE health_data SET (
    timescaledb.compress_index =
 'bloom(body_temperature), bloom(heart_rate), minmax(blood_pressure_systolic)');
 
--- If you have sparse data, with columns that are often NULL, you can add a clause to the index, saying WHERE column IS NOT NULL. This prevents the index from indexing NULL data, which can lead to a more compact and efficient index.
+-- If you have sparse data, with columns that are often NULL, 
+-- you can add a clause to the index, saying WHERE column IS NOT NULL. 
+-- This prevents the index from indexing NULL data, 
+-- which can lead to a more compact and efficient index.
 
 
 -- ============================================================================
