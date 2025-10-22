@@ -94,8 +94,8 @@ CREATE TABLE wearable_devices(
 -- ## Create Indexes
 -- ============================================================================
 -- Indexes are used to speed up the retrieval of data from a database table.
--- In this case, you create an index on the symbol column of the crypto_assets
--- and crypto_ticks tables. Hypertables automatically create indexes on the
+-- In this case, you create an index on the device_id column of the health_data 
+-- table. Hypertables automatically create indexes on the
 -- time column, so you don't need to create an index on that column.
 
 
