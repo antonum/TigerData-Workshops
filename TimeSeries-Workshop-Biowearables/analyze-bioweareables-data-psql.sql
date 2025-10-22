@@ -383,7 +383,7 @@ GROUP BY day, device_id;
 -- ============================================================================
 -- ## Enable Columnarstore (Compression)
 -- ============================================================================
--- Enabling a columnarstore for the table by itself does not compress the data.
+-- Enabling a columnstore for the table by itself does not compress the data.
 -- You can either manually compress hypertable chunks or create a policy to
 -- automatically compress chunks. The compress_chunk() function compresses the
 -- chunk of data in the hypertable.
@@ -396,7 +396,7 @@ SELECT compress_chunk(c, true) FROM show_chunks('health_data') c;
 
 -- ### Automatically compress Hypertable with a policy
 -- Create a job that automatically converts chunks in a hypertable to the
--- columnstore older than 1 day. This is a preferred way to compress data in production.
+-- columnstore older than 7 days. This is a preferred way to compress data in production.
 CALL add_columnstore_policy('health_data', after => INTERVAL '7d');
 
 
@@ -509,7 +509,7 @@ ORDER BY day;
 -- ## Real Time Continuous Aggregates
 -- ============================================================================
 -- The continuous aggregate view is automatically updated as new data is ingested
--- into the hypertable. Let's insert a new row into the crypto_ticks table and
+-- into the hypertable. Let's insert a new row into the health_data table and
 -- see how the continuous aggregate view is updated.
 
 
@@ -525,12 +525,6 @@ INSERT INTO health_data (
 -- Verify real-time update in continuous aggregate
 SELECT * FROM health_data
 WHERE time >= NOW() - INTERVAL '5 minutes';
-
-
-SELECT * FROM daily_health_summary
-WHERE device_id = 99
-ORDER BY device_id, day DESC;
-
 
 -- As you can see, the continuous aggregate view is automatically updated with
 -- the new data. This is the stark contrast to standard Postgres Materialized
