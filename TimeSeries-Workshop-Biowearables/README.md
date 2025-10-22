@@ -179,7 +179,7 @@ GROUP BY day, device_id;
 
 ## Workshop Highlights
 
-- **Real Data**: Work with sample generated bioweareables data 
+- **Bioweareables Data**: Work with sample generated bioweareables data 
 - **Performance Optimization**: Compare query times before and after compression
 - **Storage Efficiency**: See 10x storage reduction with columnar compression
 - **Automatic Updates**: Demonstrate real-time continuous aggregate updates
