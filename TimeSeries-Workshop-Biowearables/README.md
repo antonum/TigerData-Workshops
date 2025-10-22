@@ -101,9 +101,9 @@ Convert regular tables into time-series optimized hypertables:
 SELECT create_hypertable('health_data', by_range('time'));
 ```
 
-### 2. Data Generation
+### 2. Generate Data & Run Analytical Queries 
 
-Create data for daily health analysis
+Run Analytical Queries like Daily Health Analysis
 
 ```sql
 SELECT
@@ -163,8 +163,6 @@ SELECT
 FROM health_data
 GROUP BY day, device_id;
 ```
-
-
 
 
 ## Getting Started
