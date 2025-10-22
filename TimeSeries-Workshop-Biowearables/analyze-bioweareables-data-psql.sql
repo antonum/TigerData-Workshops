@@ -100,8 +100,8 @@ CREATE TABLE wearable_devices(
 
 
 CREATE INDEX ON health_data (device_id, time);
-CREATE INDEX ON health_data (time DESC, heart_rate);
-CREATE INDEX ON health_data (time DESC, blood_pressure_systolic);
+CREATE INDEX ON health_data (heart_rate, time DESC);
+CREATE INDEX ON health_data (blood_pressure_systolic, time DESC);
 
 
 -- If you have sparse data, with columns that are often NULL, 
@@ -170,7 +170,7 @@ INSERT INTO wearable_devices (user_id, device_type, device_model, firmware_versi
 
 
 -- ============================================================================
--- ## Generate and insert simulated health data
+-- ## Generate and insert simulated health data (Approx 2M records)
 -- ============================================================================
 INSERT INTO health_data (
    time,
@@ -209,11 +209,7 @@ SELECT
        ELSE 'vigorous'
    END AS activity_level
 FROM generate_series(now() - interval '30 days', now(), interval '5 second') AS g1(time),
-generate_series(1, 4, 1) AS g2(device_id);
-
-
--- (2,073,604 rows affected) in 31.8 s
-
+generate_series(1, 4, 1) AS g2(device_id);  -- adjust interval eg '30 days' to generate larger dataset
 
 -- ============================================================================
 -- ## Verify the simulated health dataset
@@ -288,18 +284,15 @@ LIMIT 24;
 -- ============================================================================
 -- While organized differently internally, hypertables are fully-featured
 -- PostgreSQL tables. You can use standard SQL to query the data in a hypertable,
--- including joining it with other tables. In this example, you join the
--- crypto_ticks hypertable with the crypto_assets table to get the name of the asset.
+-- including joining it with other tables. 
 --
 -- Optionally add EXPLAIN ANALYZE to see the query plan.
 -- You would see that the query goes through internal chunks of the hypertable
 -- like `_hyper_60_285_chunk`
 
 
--- EXPLAIN ANALYZE
-
-
 -- ### Daily activity summary per user over past week
+-- EXPLAIN ANALYZE
 SELECT
    time_bucket('1 day', hd.time) AS date,
    u.name,
@@ -383,10 +376,6 @@ FROM health_data
 WHERE health_data.time >= NOW() - INTERVAL '14 days'
 GROUP BY day, device_id;
 
-
--- 1.3 sec avg run
-
-
 -- Remember the time it took to run the query. Later we will compare the performance
 -- of the same query on compressed data and preaggregated data in Continuous aggregate
 
@@ -446,7 +435,6 @@ SELECT
 FROM health_data
 WHERE health_data.time >= NOW() - INTERVAL '14 days'
 GROUP BY day, device_id;
-
 
 -- The query runs on columnar/compressed data and it is faster than the same query on uncompressed data
 
