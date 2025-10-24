@@ -145,12 +145,7 @@ GROUP BY day, device_id;
 Enable ~10x storage compression with improved query performance:
 
 ```sql
-ALTER TABLE health_data 
-SET (
-    timescaledb.enable_columnstore = true, 
-    timescaledb.segmentby = 'device_id',
-    timescaledb.compress_orderby = 'time DESC'
-);
+CALL add_columnstore_policy('health_data', after => INTERVAL '7d');
 ```
 
 ### 4. Real Time Continuous Aggregates
