@@ -173,6 +173,13 @@ SELECT
    COUNT(*) AS readings_count
 FROM health_data
 GROUP BY day, device_id;
+
+SELECT add_continuous_aggregate_policy(
+   'daily_health_summary',
+   start_offset => INTERVAL '7 days',
+   end_offset => INTERVAL '1 day',
+   schedule_interval => INTERVAL '1 day'
+);
 ```
 
 
