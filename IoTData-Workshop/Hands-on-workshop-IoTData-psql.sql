@@ -151,7 +151,7 @@ FROM generate_series(now() - interval '30 days', now(), interval '5 seconds') AS
 
 -- ## Load data from S3 - Optional
 -- ============================================================================
--- Ingest user and wearable device data from S3 via Online S3 Connector
+-- Ingest IoT device data from S3 via Online S3 Connector
 --e.g. s3://dario-demo-data/sensor_data.csv
 
 ============================================================================
