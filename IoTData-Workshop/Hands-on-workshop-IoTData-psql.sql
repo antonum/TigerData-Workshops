@@ -403,7 +403,12 @@ ORDER BY period;
 -- ============================================================================
 -- ## Tier data to S3 storage older than 7 Days
 -- ============================================================================
+-- Tiered Storage is Tiger's multi-tiered storage architecture engineered to enable infinite, low-cost scalability for time series and analytical databases in Tiger. 
+-- Tiered storage complements Tiger's standard high-performance storage tier with a low-cost bottomless storage tier; an object store built on Amazon S3.
+-- Make sure that Tiered storage is enabled for your service (TigerData Service|Explorer|Storage Configuration|TieringStorage|Enabled)
+
 SELECT add_tiering_policy('sensor_data', INTERVAL '7 days');
+
 
 -- enable/diable tiered reads for all future sessions
 ALTER DATABASE tsdb SET timescaledb.enable_tiered_reads to true;
