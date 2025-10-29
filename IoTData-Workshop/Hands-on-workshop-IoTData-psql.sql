@@ -319,7 +319,8 @@ FROM hypertable_compression_stats('sensor_data');
 -- ## Calculate One-Day Summary Data on Compressed Hypertable
 -- ============================================================================
 -- This is the same query as above, but now it runs on compressed data.
- Explain ANALYZE SELECT
+--Explain ANALYZE 
+SELECT
     time_bucket('1 day', time) AS period,
     AVG(temperature) AS avg_temp,
     last(temperature, time) AS last_temp,
