@@ -54,7 +54,8 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
   
 - **AI & ML Integration**: Connects seamlessly with ChatGPT and Amazon SageMaker for data enrichment and devops automation
 
-- ## Data Structure
+
+## Data Structure
 
 ### Health Data Table
 
