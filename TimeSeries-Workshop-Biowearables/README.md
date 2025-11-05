@@ -14,17 +14,6 @@ eg track health metrics from wearable devices including:
 
 Use case: Remote patient monitoring, fitness tracking, and health analytics
 
-## Sample Architecture with TigerData
-
-![Sample Architecture with TigerData](https://imgur.com/j1H6zxv.png)
-
-## Architecture highlights
-
-- **Unified Data Flow**: Ingests data from files, streams, IoT devices, and APIs into the TigerData Cloud
-- **Centralized Storage**: Data is organized in the TigerData Cloud Service for analytics, AI, and ML applications
-- **Real-Time Analytics**: Enables SQL-based queries, dashboards, alerts, and visualizations using Grafana or other tools
-- **AI & ML Integration**: Connects seamlessly with ChatGPT and Amazon SageMaker for data enrichment and automation
-
 ## What You'll Learn
 
 - **Hypertables**: Convert regular PostgreSQL tables into time-series optimized hypertables
@@ -51,7 +40,21 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
 
 - Basic knowledge of SQL and relational data concepts
 
-## Data Structure
+## Sample Architecture with TigerData
+
+![Sample Architecture with TigerData](https://imgur.com/j1H6zxv.png)
+
+## Architecture highlights
+
+- **Unified Data Flow**: Ingests data from files, streams, IoT devices, and APIs into the TigerData Cloud
+  
+- **Centralized Storage**: Data is organized in the TigerData Cloud Service for analytics, AI, and ML applications
+  
+- **Real-Time Analytics**: Enables SQL-based queries, dashboards, alerts, and visualizations using Grafana or other tools
+  
+- **AI & ML Integration**: Connects seamlessly with ChatGPT and Amazon SageMaker for data enrichment and devops automation
+
+- ## Data Structure
 
 ### Health Data Table
 
