@@ -14,7 +14,8 @@ eg track health metrics from wearable devices including:
 
 Use case: Remote patient monitoring, fitness tracking, and health analytics
 
-## ![Sample Architecture with TigerData](https://imgur.com/j1H6zxv.png)
+## ![Sample Architecture with TigerData]
+(https://imgur.com/j1H6zxv.png)
 
 ## Architecture highlights
 
