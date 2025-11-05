@@ -46,9 +46,9 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
 
 ## Architecture highlights
 
-- **Unified Data Flow**: Ingests data from files, streams, IoT devices, and APIs into the TigerData Cloud
+- **Unified Data Flow**: Ingest data from files, streams, IoT devices, and APIs into the TigerData Cloud Service (AWS or Azure)
   
-- **Centralized Storage**: Data is organized in the TigerData Cloud Service for analytics, AI, and ML applications
+- **Centralized Storage**: Data is organized in the TigerData Cloud Service for analytics, AI, and ML applications (with built in compression and continous real-time aggregations) 
   
 - **Real-Time Analytics**: Enables SQL-based queries, dashboards, alerts, and visualizations using Grafana or other tools
   
