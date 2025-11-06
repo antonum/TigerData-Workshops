@@ -14,7 +14,6 @@ eg track health metrics from wearable devices including:
 
 Use case: Remote patient monitoring, fitness tracking, and health analytics
 
-
 ## What You'll Learn
 
 - **Hypertables**: Convert regular PostgreSQL tables into time-series optimized hypertables
@@ -40,6 +39,21 @@ Use case: Remote patient monitoring, fitness tracking, and health analytics
 - Optional, but recommended - install psql CLI https://www.tigerdata.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows
 
 - Basic knowledge of SQL and relational data concepts
+
+## Sample Architecture with TigerData
+
+![Sample Architecture with TigerData](https://imgur.com/j1H6zxv.png)
+
+## Architecture highlights
+
+- **Unified Data Flow**: Ingest data from files, streams, IoT devices, and APIs into the TigerData Cloud Service (AWS or Azure)
+  
+- **Centralized Storage**: Data is organized in the TigerData Cloud Service for analytics, AI, and ML applications (with built in compression and continous real-time aggregations) 
+  
+- **Real-Time Analytics**: Enables SQL-based queries, dashboards, alerts, and visualizations using Grafana or other tools
+  
+- **AI & ML Integration**: Connects seamlessly with ChatGPT and Amazon SageMaker for data enrichment and devops automation
+
 
 ## Data Structure
 
