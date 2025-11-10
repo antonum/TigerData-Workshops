@@ -35,10 +35,24 @@ It is often necessary to simulate IoT datasets. For example, when you are testin
 
 - Basic knowledge of SQL
 
+## Sample Architecture with TigerData
 
-## Data StructureThe workshop uses two main datasets:
+![Sample Architecture with TigerData](https://imgur.com/j1H6zxv.png)
 
-## Standard Postgres reference table for relational (meta) data:
+## Architecture highlights
+
+Unified Data Flow: Ingest data from files, streams, IoT devices, and APIs into the TigerData Cloud Service (AWS or Azure)
+
+Centralized Storage: Data is organized in the TigerData Cloud Service for analytics, AI, and ML applications (with built in compression and continous real-time aggregations)
+
+Real-Time Analytics: Enables SQL-based queries, dashboards, alerts, and visualizations using Grafana or other tools
+
+AI & ML Integration: Connects seamlessly with ChatGPT and Amazon SageMaker for data enrichment and devops automation
+
+
+## Data Structure
+
+### Standard Postgres reference table for relational (meta) data:
 
 ```sql
 CREATE TABLE sensors(
